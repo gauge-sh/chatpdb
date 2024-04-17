@@ -1,7 +1,7 @@
 import inspect
 import traceback
 from types import FrameType
-from typing import Any
+from typing import Any, Optional
 from rich.console import Console
 
 from pydantic import BaseModel
@@ -32,10 +32,11 @@ class FrameData(BaseModel):
         )
 
 
-def hook(frame: FrameType):
+def hook(frame: FrameType, prompt: Optional[str] = None):
     frame_data = FrameData.from_frame(frame)
 
     console = Console()
     console.print(frame_data)
+    console.print("PROMPT:", prompt)
 
     # yield []
