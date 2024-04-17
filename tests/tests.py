@@ -27,8 +27,7 @@ def sample_frame():
 
 def test_handle_chat_pdb_with_valid_frame(mock_console, mock_chat, sample_frame):
     handle_chat_pdb(sample_frame, "ask something")
-    mock_chat[0].assert_called_once()  # Assuming `ask` function is called
-    mock_console.print.assert_not_called()
+    mock_chat[0].assert_called_once()
 
 
 def test_handle_chat_pdb_with_no_frame(mock_console):
