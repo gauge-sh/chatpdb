@@ -1,4 +1,0 @@
-ipdb==0.13.13
-openai==1.21.0
-pydantic==2.7.0
-tenacity==8.2.3
