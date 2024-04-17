@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, List, Dict
 
 from pydantic import BaseModel
 from chatpdb.chat.prompts import get_ask_prompt, get_explain_prompt
@@ -8,9 +8,9 @@ from chatpdb.chat.llm import prompt_streaming
 class AskArgs(BaseModel):
     message: str
     source_code: str
-    stack_trace: list[str]
-    local_vars: dict[str, str]
-    global_vars: dict[str, str]
+    stack_trace: List[str]
+    local_vars: Dict[str, str]
+    global_vars: Dict[str, str]
     exception: str = ""
 
 
@@ -28,9 +28,9 @@ def ask(args: AskArgs) -> Iterable[str]:
 
 class ExplainArgs(BaseModel):
     source_code: str
-    stack_trace: list[str]
-    local_vars: dict[str, str]
-    global_vars: dict[str, str]
+    stack_trace: List[str]
+    local_vars: Dict[str, str]
+    global_vars: Dict[str, str]
     exception: str = ""
 
 

@@ -1,3 +1,5 @@
+from typing import List, Dict
+
 shared_context_template = """
 ## Context
 <stacktrace>
@@ -51,10 +53,10 @@ Your response must:
 
 
 def get_explain_prompt(
-    stack_trace: list[str],
+    stack_trace: List[str],
     source_code: str,
-    local_vars: dict[str, str],
-    global_vars: dict[str, str],
+    local_vars: Dict[str, str],
+    global_vars: Dict[str, str],
     exception: str = "",
 ) -> str:
     if exception:
