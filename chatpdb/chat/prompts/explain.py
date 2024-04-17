@@ -1,11 +1,12 @@
+import traceback
+
+from chatpdb.chat.prompts.util import format_stack_trace, format_vars
+
 shared_context_template = """
 ## Context
 <stacktrace>
 {stack_trace}
 </stacktrace>
-<code>
-{source_code}
-</code>
 <frame_variables>
 <locals>
 {locals}
@@ -51,23 +52,20 @@ Your response must:
 
 
 def get_explain_prompt(
-    stack_trace: list[str],
-    source_code: str,
+    stack_trace: list[traceback.FrameSummary],
     local_vars: dict[str, str],
     global_vars: dict[str, str],
     exception: str = "",
 ) -> str:
     if exception:
         return exception_template.format(
-            stack_trace="\n".join(stack_trace),
-            source_code=source_code,
-            locals="\n".join(f"{k}: {v}" for k, v in local_vars.items()),
-            globals="\n".join(f"{k}: {v}" for k, v in global_vars.items()),
+            stack_trace=format_stack_trace(stack_trace),
+            locals=format_vars(local_vars),
+            globals=format_vars(global_vars),
             exception=exception,
         )
     return template.format(
-        stack_trace="\n".join(stack_trace),
-        source_code=source_code,
-        locals="\n".join(f"{k}: {v}" for k, v in local_vars.items()),
-        globals="\n".join(f"{k}: {v}" for k, v in global_vars.items()),
+        stack_trace=format_stack_trace(stack_trace),
+        locals=format_vars(local_vars),
+        globals=format_vars(global_vars),
     )
