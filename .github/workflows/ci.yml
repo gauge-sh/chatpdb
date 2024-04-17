@@ -41,4 +41,4 @@ jobs:
         cd ..
     - name: Check types with pyright
       run: |
-        pyright .
+        pyright -p pyproject.toml .
