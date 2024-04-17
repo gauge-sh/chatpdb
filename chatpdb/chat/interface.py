@@ -1,12 +1,11 @@
 from typing import Iterable
 
 from pydantic import BaseModel
-from chatpdb.chat.llm import prompt_streaming
 from chatpdb.chat.prompts import get_ask_prompt, get_explain_prompt
 
 
 class AskArgs(BaseModel):
-    question: str
+    message: str
     source_code: str
     stack_trace: list[str]
     local_vars: dict[str, str]
@@ -15,13 +14,15 @@ class AskArgs(BaseModel):
 
 def ask(args: AskArgs) -> Iterable[str]:
     prompt = get_ask_prompt(
-        message=args.question,
+        message=args.message,
         stack_trace=args.stack_trace,
         source_code=args.source_code,
         local_vars=args.local_vars,
         global_vars=args.global_vars,
     )
-    return prompt_streaming(prompt)
+    print(prompt)
+    return [prompt]
+    # return prompt_streaming(prompt)
 
 
 class ExplainArgs(BaseModel):
@@ -38,4 +39,6 @@ def explain(args: ExplainArgs) -> Iterable[str]:
         local_vars=args.local_vars,
         global_vars=args.global_vars,
     )
-    return prompt_streaming(prompt)
+    print(prompt)
+    return [prompt]
+    # return prompt_streaming(prompt)
