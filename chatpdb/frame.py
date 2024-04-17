@@ -1,8 +1,7 @@
 import inspect
 import traceback
 from types import FrameType
-from typing import Any, Optional
-from rich.console import Console
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -19,7 +18,10 @@ class FrameData(BaseModel):
 
     @classmethod
     def from_frame(cls, frame: FrameType) -> "FrameData":
-        source_code = inspect.getsource(frame)
+        try:
+            source_code = inspect.getsource(frame)
+        except OSError:
+            source_code = "Source code not available, likely running in a REPL or interactive environment."
         locals_dict = frame.f_locals
         globals_dict = frame.f_globals
         stack_trace = traceback.extract_stack(frame)
@@ -30,13 +32,3 @@ class FrameData(BaseModel):
             globals_dict=globals_dict,
             stack_trace=stack_trace,
         )
-
-
-def hook(frame: FrameType, prompt: Optional[str] = None):
-    frame_data = FrameData.from_frame(frame)
-
-    console = Console()
-    console.print(frame_data)
-    console.print("PROMPT:", prompt)
-
-    # yield []
