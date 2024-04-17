@@ -43,4 +43,3 @@ jobs:
     - name: Check types with pyright
       run: |
         pyright .
-    
