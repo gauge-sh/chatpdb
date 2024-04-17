@@ -8,6 +8,7 @@ from chatpdb.__main__ import (
     runeval,
     launch_ipdb_on_exception,
 )
+from chatpdb.debugger import ChatPdb
 
 from chatpdb.stdout import sset_trace, spost_mortem, spm, slaunch_ipdb_on_exception
 
@@ -25,6 +26,7 @@ __all__ = (
     "runcall",
     "runeval",
     "launch_ipdb_on_exception",
+    "ChatPdb",
     "sset_trace",
     "spost_mortem",
     "spm",

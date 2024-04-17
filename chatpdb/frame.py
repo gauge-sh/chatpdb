@@ -19,7 +19,10 @@ class FrameData(BaseModel):
 
     @classmethod
     def from_frame(cls, frame: FrameType) -> "FrameData":
-        source_code = inspect.getsource(frame)
+        try:
+            source_code = inspect.getsource(frame)
+        except OSError:
+            source_code = "Source code not available, likely running in a REPL or interactive environment."
         locals_dict = frame.f_locals
         globals_dict = frame.f_globals
         stack_trace = traceback.extract_stack(frame)
