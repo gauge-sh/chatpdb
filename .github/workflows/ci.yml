@@ -26,10 +26,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install uv
-        uv venv
-        .venv/bin/activate
-        uv pip install ruff pytest pytest-mock coverage pyright
+         pip install --upgrade pip
+         pip install ruff pytest pytest-mock coverage pyright
     - name: Check ruff
       run: |
         ruff check .
