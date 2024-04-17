@@ -29,7 +29,7 @@ keywords = ['python', 'chatgpt', 'pdb', 'ai', 'chat', 'debugger']
 dependencies = [
     "ipdb==0.13.13",
     "openai==1.21.0",
-    "pydantic==2.7.0",
+    "pydantic==2.5.3",
     "tenacity==8.2.3",
     "rich==13.7.1"
 ]
