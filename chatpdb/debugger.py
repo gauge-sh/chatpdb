@@ -1,3 +1,4 @@
+import sys
 from types import FrameType
 from typing import Optional
 
@@ -16,7 +17,9 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
     if not frame:
         console.print("ChatPDB: No frame available")
         return
-
+    # Will be None, None, None if no exception
+    error_class, error_name, _ = sys.exc_info()
+    print(error_class, error_name)
     if arg:
         ask_args = parse_ask_args_from_frame(frame, message=arg)
         for line in ask(ask_args):
@@ -30,13 +33,14 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
     console.print("")
 
 
-# For use outside a shell environment
-class ChatPdb(Pdb):
-    def do_x(self, arg: str):
-        handle_chat_pdb(self.curframe, arg=arg)
+class ChatPdbMixin:
+    def do_y(self, arg: str):
+        handle_chat_pdb(self.curframe, arg)
 
 
-# For use inside shell environments
-class TerminalChatPdb(TerminalPdb):
-    def do_x(self, arg: str):
-        handle_chat_pdb(self.curframe, arg=arg)
+# For use in rich IPython environments
+class TerminalChatPdb(ChatPdbMixin, TerminalPdb): ...
+
+
+# For use with simple_prompt IPython instances
+class ChatPdb(ChatPdbMixin, Pdb): ...
