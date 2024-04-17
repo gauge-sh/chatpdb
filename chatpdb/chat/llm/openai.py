@@ -1,5 +1,5 @@
 import os
-from typing import Iterable, Literal, List
+from typing import Iterable, Literal, List, Union
 
 from openai import OpenAI
 from pydantic import BaseModel
@@ -20,7 +20,7 @@ def get_model() -> str:
 
 
 class OpenAIMessage(BaseModel):
-    role: Literal["user"] | Literal["system"] | Literal["assistant"]
+    role: Union[Literal["user"], Literal["system"], Literal["assistant"]]
     content: str
 
     @classmethod
