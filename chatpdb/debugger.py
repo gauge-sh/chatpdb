@@ -18,14 +18,22 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
         console.print("ChatPDB: No frame available")
         return
     # Will be None, None, None if no exception
-    error_class, error_name, _ = sys.exc_info()
-    print(error_class, error_name)
+    exception_type, exception_value, _ = sys.exc_info()
     if arg:
-        ask_args = parse_ask_args_from_frame(frame, message=arg)
+        ask_args = parse_ask_args_from_frame(
+            frame,
+            message=arg,
+            exception_type=exception_type,
+            exception_value=exception_value,
+        )
         for line in ask(ask_args):
             console.print(line, end="")
     else:
-        explain_args = parse_explain_args_from_frame(frame)
+        explain_args = parse_explain_args_from_frame(
+            frame,
+            exception_type=exception_type,
+            exception_value=exception_value,
+        )
         for line in explain(explain_args):
             console.print(line, end="")
 
@@ -33,7 +41,8 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
     console.print("")
 
 
-class ChatPdbMixin:
+# For use in rich IPython environments
+class TerminalChatPdb(TerminalPdb):
     def do_y(self, arg: str):
         """y "prompt"
 
@@ -43,9 +52,7 @@ class ChatPdbMixin:
         handle_chat_pdb(self.curframe, arg)  # type: ignore
 
 
-# For use in rich IPython environments
-class TerminalChatPdb(ChatPdbMixin, TerminalPdb): ...
-
-
 # For use with simple_prompt IPython instances
-class ChatPdb(ChatPdbMixin, Pdb): ...
+class ChatPdb(Pdb):
+    def do_y(self, arg: str):
+        handle_chat_pdb(self.curframe, arg)

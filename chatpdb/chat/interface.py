@@ -1,24 +1,31 @@
+<<<<<<< HEAD
 from typing import Iterable, List, Dict
+=======
+import traceback
+from typing import Iterable
+>>>>>>> 2cee94b697d33148c35ce8624c03cb9ce2e79969
 
 from pydantic import BaseModel
-from chatpdb.chat.prompts import get_ask_prompt, get_explain_prompt
+
 from chatpdb.chat.llm import prompt_streaming
+from chatpdb.chat.prompts import get_ask_prompt, get_explain_prompt
 
 
 class AskArgs(BaseModel):
     message: str
-    source_code: str
     stack_trace: List[str]
     local_vars: Dict[str, str]
     global_vars: Dict[str, str]
     exception: str = ""
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 def ask(args: AskArgs) -> Iterable[str]:
     prompt = get_ask_prompt(
         message=args.message,
         stack_trace=args.stack_trace,
-        source_code=args.source_code,
         local_vars=args.local_vars,
         global_vars=args.global_vars,
         exception=args.exception,
@@ -27,17 +34,18 @@ def ask(args: AskArgs) -> Iterable[str]:
 
 
 class ExplainArgs(BaseModel):
-    source_code: str
     stack_trace: List[str]
     local_vars: Dict[str, str]
     global_vars: Dict[str, str]
     exception: str = ""
 
+    class Config:
+        arbitrary_types_allowed = True
+
 
 def explain(args: ExplainArgs) -> Iterable[str]:
     prompt = get_explain_prompt(
         stack_trace=args.stack_trace,
-        source_code=args.source_code,
         local_vars=args.local_vars,
         global_vars=args.global_vars,
         exception=args.exception,
