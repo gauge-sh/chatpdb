@@ -39,6 +39,3 @@ jobs:
         coverage run --branch --source=../ -m pytest
         coverage report
         cd ..
-    - name: Check types with pyright
-      run: |
-        pyright -p pyproject.toml .

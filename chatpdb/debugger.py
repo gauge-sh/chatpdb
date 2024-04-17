@@ -35,6 +35,11 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
 
 class ChatPdbMixin:
     def do_y(self, arg: str):
+        """y "prompt"
+
+        Ask ChatGPT to explain the current code and stack trace.
+        Optionally prompt for a more specific answer.
+        """
         handle_chat_pdb(self.curframe, arg)  # type: ignore
 
 

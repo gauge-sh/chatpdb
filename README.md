@@ -29,13 +29,13 @@ chatpdb extends your python debugger to allow you to ask questions to chatgpt. S
 ipdb> y
 You are currently in a python debugger, etc.
 ```
-Type `y [prompt]` to ask a question. 
+Type `y "prompt"` to ask a question. 
 ```python3
 > /Users/you/sample.py (9) test_function()
       8     
 ----> 9     import chatpdb; chatpdb.set_trace()
      10
-ipdb> y what does chatpdb do in this case?
+ipdb> y "what does chatpdb do in this case?"
 You are currently in a python debugger, etc.
 ```
 
