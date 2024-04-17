@@ -3,6 +3,8 @@ from typing import Iterable, Literal
 
 from openai import OpenAI
 from pydantic import BaseModel
+from tenacity import retry, stop_after_attempt, wait_random_exponential
+
 
 client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY") or os.environ.get("CHATPDB_OPENAI_API_KEY")
@@ -16,10 +18,19 @@ def get_model() -> str:
 
 
 class OpenAIMessage(BaseModel):
-    role: Literal["user"] | Literal["system"]
+    role: Literal["user"] | Literal["system"] | Literal["assistant"]
     content: str
 
+    @classmethod
+    def system_prompt(cls, content: str) -> "OpenAIMessage":
+        return cls(role="system", content=content)
 
+    @classmethod
+    def user_message(cls, content: str) -> "OpenAIMessage":
+        return cls(role="user", content=content)
+
+
+@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(4))
 def prompt(messages: list[OpenAIMessage]) -> str:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
@@ -30,6 +41,7 @@ def prompt(messages: list[OpenAIMessage]) -> str:
     return response.choices[0].message.content
 
 
+@retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(4))
 def prompt_streaming(messages: list[OpenAIMessage]) -> Iterable[str]:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
