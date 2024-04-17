@@ -43,10 +43,7 @@ You are currently in a python debugger, etc.
 ## Advanced
 
 ### Usage
-[ipdb]() and [pdb]() support many different entrypoints which `chatpdb` also supports. 
-```python3
-import chatpdb; chatpdb.pm()
-```
+[ipdb]() and [pdb]() support many different entrypoints which `chatpdb` also supports.
 ```python3
 import chatpdb; chatpdb.run('print("hello")')
 ```
@@ -64,6 +61,10 @@ def sample_cex_function():
 def sample_with_function():
     with chatpdb.launch_chatpdb_on_exception(): # or chatpdb.launch_ipdb_on_exception()
         raise
+```
+```python3
+# See pdb documentation for pm (post-mortem) usage
+import chatpdb; chatpdb.pm()
 ```
 
 ### Configuration
