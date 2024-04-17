@@ -27,7 +27,7 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
             console.print(line, end="")
 
     # Newline
-    console.print()
+    console.print("")
 
 
 # For use outside a shell environment
