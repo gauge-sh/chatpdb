@@ -11,6 +11,7 @@ class AskArgs(BaseModel):
     stack_trace: list[str]
     local_vars: dict[str, str]
     global_vars: dict[str, str]
+    exception: str = ""
 
 
 def ask(args: AskArgs) -> Iterable[str]:
@@ -20,6 +21,7 @@ def ask(args: AskArgs) -> Iterable[str]:
         source_code=args.source_code,
         local_vars=args.local_vars,
         global_vars=args.global_vars,
+        exception=args.exception,
     )
     return prompt_streaming(prompt)
 
@@ -29,6 +31,7 @@ class ExplainArgs(BaseModel):
     stack_trace: list[str]
     local_vars: dict[str, str]
     global_vars: dict[str, str]
+    exception: str = ""
 
 
 def explain(args: ExplainArgs) -> Iterable[str]:
@@ -37,5 +40,6 @@ def explain(args: ExplainArgs) -> Iterable[str]:
         source_code=args.source_code,
         local_vars=args.local_vars,
         global_vars=args.global_vars,
+        exception=args.exception,
     )
     return prompt_streaming(prompt)
