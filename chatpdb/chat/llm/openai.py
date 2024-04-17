@@ -50,4 +50,4 @@ def prompt_streaming(messages: list[OpenAIMessage]) -> Iterable[str]:
         model=get_model(),
         stream=True,
     )
-    return (chunk.choices[0].delta.content for chunk in completion_stream)
+    return (chunk.choices[0].delta.content or "" for chunk in completion_stream)
