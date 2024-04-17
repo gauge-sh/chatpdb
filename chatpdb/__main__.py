@@ -22,7 +22,7 @@ from chatpdb.debugger import ChatPdb, TerminalChatPdb
 
 try:
     import configparser
-except:
+except:  # noqa: E722
     import ConfigParser as configparser
 
 
@@ -343,7 +343,7 @@ def main():
             # In most cases SystemExit does not warrant a post-mortem session.
             print("The program exited via sys.exit(). Exit status: ", end="")
             print(sys.exc_info()[1])
-        except:
+        except:  # noqa: E722
             traceback.print_exc()
             print("Uncaught exception. Entering post mortem debugging")
             print("Running 'cont' or 'step' will restart the program")

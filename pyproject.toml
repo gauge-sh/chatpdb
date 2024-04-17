@@ -37,7 +37,12 @@ Issues = "https://github.com/never-over/chatpdb/issues"
 
 [tool.pyright]
 include = ["chatpdb"]
-exclude = ["**/__pycache__", '**/.venv']
+exclude = [
+    "**/__pycache__",
+    "**/.venv",
+    "chatpdb/__main__.py",
+    "chatpdb/stdout.py"
+]
 reportMissingTypeStubs = false
 
 [build-system]
