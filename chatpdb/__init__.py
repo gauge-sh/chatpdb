@@ -9,7 +9,7 @@ from chatpdb.__main__ import (
     launch_ipdb_on_exception,
 )
 
-from ipdb.stdout import sset_trace, spost_mortem, spm, slaunch_ipdb_on_exception
+from chatpdb.stdout import sset_trace, spost_mortem, spm, slaunch_ipdb_on_exception
 
 cex = iex
 launch_chatpdb_on_exception = launch_ipdb_on_exception

@@ -1,3 +1,5 @@
+import sys
+
 from IPython.terminal.debugger import TerminalPdb
 from IPython.core.debugger import Pdb
 
@@ -8,15 +10,18 @@ from chatpdb.frame import hook
 console = Console()
 
 
-# For use outside of a shell environment
-class ChatPdb(Pdb):
-    def do_x(self, arg: str):
+class ChatPdbMixin:
+    def do_y(self, arg: str):
         if self.curframe:
-            hook(self.curframe, arg)
+            error_class, error_name, _ = sys.exc_info()
+            hook(self.curframe, arg, error_name, error_class)
+        else:
+            raise ValueError("Unable to access current frame.")
 
 
-# For use inside shell environments
-class TerminalChatPdb(TerminalPdb):
-    def do_x(self, arg: str):
-        if self.curframe:
-            hook(self.curframe, arg)
+# For use with simple_prompt IPython instances
+class ChatPdb(ChatPdbMixin, Pdb): ...
+
+
+# For use in rich IPython environments
+class TerminalChatPdb(ChatPdbMixin, TerminalPdb): ...
