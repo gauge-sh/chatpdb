@@ -36,17 +36,17 @@ def prompt(messages: list[OpenAIMessage]) -> str:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
     response = client.chat.completions.create(
-        messages=[message.model_dump() for message in messages],
+        messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
     )
-    return response.choices[0].message.content
+    return response.choices[0].message.content  # type: ignore
 
 
 def prompt_streaming(messages: list[OpenAIMessage]) -> Iterable[str]:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
-    completion_stream = client.chat.completions.create(
-        messages=[message.model_dump() for message in messages],
+    completion_stream = client.chat.completions.create(  # type: ignore
+        messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
         stream=True,
     )

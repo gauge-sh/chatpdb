@@ -43,7 +43,8 @@ exclude = [
     "**/__pycache__",
     "**/.venv",
     "chatpdb/__main__.py",
-    "chatpdb/stdout.py"
+    "chatpdb/stdout.py",
+    "tests/"
 ]
 reportMissingTypeStubs = false
 
