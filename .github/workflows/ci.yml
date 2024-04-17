@@ -28,6 +28,7 @@ jobs:
       run: |
          pip install --upgrade pip
          pip install ruff pytest pytest-mock coverage pyright
+         pip install .
     - name: Check ruff
       run: |
         ruff check . --exclude tests
