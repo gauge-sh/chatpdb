@@ -30,6 +30,8 @@ def format_stack_trace(stack_trace: List[traceback.FrameSummary]) -> str:
                             content.append(f"  {i + 1} | {line}")
                     file_contents[filename] = "".join(content)
             except (FileNotFoundError, IOError):
+                # Just continue if we can't read the file
+                # Later we can show a warning in verbose mode or similar
                 pass
 
     files = []

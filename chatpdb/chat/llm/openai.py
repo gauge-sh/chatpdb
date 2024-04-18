@@ -5,12 +5,16 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 
-client = OpenAI(
-    api_key=os.environ.get("CHAT_PDB_OPENAI_API_KEY")
-    or os.environ.get("OPENAI_API_KEY"),
-    organization=os.environ.get("CHAT_PDB_OPENAI_ORG_ID")
-    or os.environ.get("OPENAI_ORG_ID"),
-)
+def get_client() -> OpenAI:
+    api_key = os.environ.get("CHAT_PDB_OPENAI_API_KEY") or os.environ.get(
+        "OPENAI_API_KEY"
+    )
+    organization = os.environ.get("CHAT_PDB_OPENAI_ORG_ID") or os.environ.get(
+        "OPENAI_ORG_ID"
+    )
+    if not api_key:
+        raise ValueError("OpenAI API key not set")
+    return OpenAI(api_key=api_key, organization=organization)
 
 
 def get_model() -> str:
@@ -35,7 +39,7 @@ class OpenAIMessage(BaseModel):
 def prompt(messages: List[OpenAIMessage]) -> str:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
-    response = client.chat.completions.create(
+    response = get_client().chat.completions.create(
         messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
     )
@@ -45,7 +49,7 @@ def prompt(messages: List[OpenAIMessage]) -> str:
 def prompt_streaming(messages: List[OpenAIMessage]) -> Iterable[str]:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
-    completion_stream = client.chat.completions.create(  # type: ignore
+    completion_stream = get_client().chat.completions.create(  # type: ignore
         messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
         stream=True,

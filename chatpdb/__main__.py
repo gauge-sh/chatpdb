@@ -49,6 +49,9 @@ def _get_debugger_cls():
 
     # Let IPython decide about which debugger class to use
     # This is especially important for tools that fiddle with stdout
+    if getattr(type(shell), "__module__", "").startswith("google.colab"):
+        # Google Colab has its own debugger, ChatPdb seems to work though
+        return ChatPdb
     return ChatPdb if shell.simple_prompt else TerminalChatPdb
 
 
