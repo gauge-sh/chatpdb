@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 from typing import Iterable, List, Dict
-=======
 import traceback
 from typing import Iterable
->>>>>>> 2cee94b697d33148c35ce8624c03cb9ce2e79969
 
 from pydantic import BaseModel
 
