@@ -7,7 +7,7 @@
 # chatpdb
 `chatpdb` is an extension to [ipdb](https://github.com/gotcha/ipdb) that lets you ask questions while debugging your code.
 
-![](https://raw.githubusercontent.com/Never-Over/bridge/main/docs/runserver_demo.gif)
+![](https://raw.githubusercontent.com/Never-Over/chatpdb/main/assets/chatpdb_demo.gif)
 
 ## Installation
 ```bash
