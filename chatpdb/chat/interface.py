@@ -1,6 +1,4 @@
-from typing import Iterable, List, Dict
-import traceback
-from typing import Iterable
+from typing import List, Dict, Iterable
 
 from pydantic import BaseModel
 
