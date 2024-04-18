@@ -29,14 +29,8 @@ def format_stack_trace(stack_trace: List[traceback.FrameSummary]) -> str:
                         else:
                             content.append(f"  {i + 1} | {line}")
                     file_contents[filename] = "".join(content)
-            except FileNotFoundError:
-                console.print(
-                    f"Warning: File found in traceback ('{filename}') does not exist."
-                )
-            except IOError:
-                console.print(
-                    f"Warning: Could not read file found in traceback ('{filename}')."
-                )
+            except (FileNotFoundError, IOError):
+                pass
 
     files = []
     for frame in stack_trace:

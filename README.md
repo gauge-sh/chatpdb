@@ -5,15 +5,20 @@
 [![Checked with pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 # chatpdb
-`chatpdb` is an extension to [ipdb](https://github.com/gotcha/ipdb) that lets you ask questions while debugging your code.
+
+`chatpdb` is a drop in replacement for [ipdb](https://github.com/gotcha/ipdb) or [pdb](https://docs.python.org/3/library/pdb.html) that lets you ask questions while debugging.
 
 ![](https://raw.githubusercontent.com/Never-Over/chatpdb/main/assets/chatpdb_demo.gif)
+
+`chatpdb` meets you where you are - AI tooling that's only invoked when you need it.
 
 ## Installation
 ```bash
 pip install chatpdb
 ```
 Ensure that you have `OPENAI_API_KEY` set in your environment.
+```bash
+export OPENAI_API_KEY=...```
 
 ## Usage
 In your code:
@@ -27,7 +32,7 @@ Simply type `y` to receive a summary of the current code and stack trace.
 ----> 9     import chatpdb; chatpdb.set_trace()
      10
 ipdb> y
-You are currently in a python debugger, etc.
+You are currently in a python debugger
 ```
 Type `y "prompt"` to ask a question. 
 
@@ -48,32 +53,37 @@ You are currently in a python debugger, etc.
 exception information if one has been raised.
 
 
-## Advanced
+### Advanced Usage
 
-### Usage
-[ipdb](https://github.com/gotcha/ipdb) and [pdb](https://docs.python.org/3/library/pdb.html) support many different entrypoints which `chatpdb` also supports.
+Just like [ipdb](https://github.com/gotcha/ipdb) and [pdb](https://docs.python.org/3/library/pdb.html), `chatpdb` supports many different entrypoints.
+
+Running code:
 ```python3
 import chatpdb; chatpdb.run('print("hello")')
-```
-```python3
 import chatpdb; chatpdb.runcall(lambda x: x + 1, 1)
 ```
+As a decorator:
 ```python3
-# chatpdb will launch on exception
-# @chatpdb.iex is also supported
+
 @chatpdb.cex
 def sample_cex_function():
-    raise
+    raise # any exception within the decorated function will trigger chatpdb
 ```
+As a context manager:
 ```python3
-def sample_with_function():
-    with chatpdb.launch_chatpdb_on_exception(): # or chatpdb.launch_ipdb_on_exception()
-        raise
+with chatpdb.launch_chatpdb_on_exception():
+    raise # any exception within the with block will trigger chatpdb
 ```
+On files:
+```bash
+python3 -m chatpdb file.py
+```
+post-mortem support:
 ```python3
-# See pdb documentation for pm (post-mortem) usage
-import chatpdb; chatpdb.pm()
+chatpdb.pm()
 ```
+
+See the documentation of [ipdb](https://github.com/gotcha/ipdb) or [pdb](https://docs.python.org/3/library/pdb.html) for the full api.
 
 ### Configuration
 You can use more specific environment variables to configure an OpenAI key and preferred model
