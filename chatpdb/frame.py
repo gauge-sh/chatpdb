@@ -33,19 +33,3 @@ class FrameData(BaseModel):
             globals_dict=globals_dict,
             stack_trace=stack_trace,
         )
-
-
-def hook(
-    frame: FrameType,
-    prompt: Optional[str] = None,
-    error_name: Optional[str] = None,
-    error_class: Optional[Type[BaseException]] = None,
-):
-    frame_data = FrameData.from_frame(frame)
-
-    console = Console()
-    console.print(frame_data)
-    console.print("PROMPT:", prompt)
-    console.print("ERROR NAME:", error_name)
-    console.print("ERROR CLASS:", error_class)
-    # yield []
