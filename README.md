@@ -6,7 +6,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 # chatpdb
 
-`chatpdb` is a drop in replacement for [ipdb](https://github.com/gotcha/ipdb) or [pdb](https://docs.python.org/3/library/pdb.html) that lets you ask questions while debugging.
+`chatpdb` is a drop-in replacement for [ipdb](https://github.com/gotcha/ipdb) or [pdb](https://docs.python.org/3/library/pdb.html) that lets you ask questions while debugging.
 
 ![](https://raw.githubusercontent.com/Never-Over/chatpdb/main/assets/chatpdb_demo.gif)
 
