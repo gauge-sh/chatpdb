@@ -27,22 +27,23 @@ import chatpdb; chatpdb.set_trace()
 ```
 Simply type `y` to receive a summary of the current code and stack trace.
 ```python3
-> /Users/you/sample.py (9) test_function()
-      8     
-----> 9     import chatpdb; chatpdb.set_trace()
-     10
-ipdb> y
-You are currently in a python debugger
+> /Programming/test-chatpdb/lib.py(2)echo_platform()
+      1 def echo_platform(platform: str):
+----> 2     print("You are running on:" + platform)
+      3
+ipdb> y 
+The exception occurred because the function `echo_platform` tries to concatenate the string "You are running on:" with the `platform` variable, which is `None`. [...]
 ```
+
 Type `y "prompt"` to ask a question. 
 
 ```python3
-> /Users/you/sample.py (9) test_function()
-      8     
-----> 9     import chatpdb; chatpdb.set_trace()
-     10
-ipdb> y "what does chatpdb do in this case?"
-You are currently in a python debugger, etc.
+> /Programming/test-chatpdb/lib.py(2)echo_platform()
+      1 def echo_platform(platform: str):
+----> 2     print("You are running on:" + platform)
+      3
+ipdb> y "Why is platform coming through as None?"
+The variable `platform` is coming through as `None` because the environment variable `"PLATFORM"` is not set in your system's environment variables. [...]
 ```
 
 
