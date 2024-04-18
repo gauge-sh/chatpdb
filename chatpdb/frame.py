@@ -1,8 +1,7 @@
 import inspect
 import traceback
 from types import FrameType
-from typing import Any, Optional, Type, List, Dict
-from rich.console import Console
+from typing import Any, List, Dict
 
 from pydantic import BaseModel
 
