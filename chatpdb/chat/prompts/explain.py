@@ -1,3 +1,4 @@
+from typing import List, Dict
 import traceback
 
 from chatpdb.chat.prompts.util import format_stack_trace, format_vars
@@ -52,9 +53,9 @@ Your response must:
 
 
 def get_explain_prompt(
-    stack_trace: list[traceback.FrameSummary],
-    local_vars: dict[str, str],
-    global_vars: dict[str, str],
+    stack_trace: List[traceback.FrameSummary],
+    local_vars: Dict[str, str],
+    global_vars: Dict[str, str],
     exception: str = "",
 ) -> str:
     if exception:

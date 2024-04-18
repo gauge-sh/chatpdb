@@ -44,7 +44,12 @@ def handle_chat_pdb(frame: Optional[FrameType], arg: str):
 # For use in rich IPython environments
 class TerminalChatPdb(TerminalPdb):
     def do_y(self, arg: str):
-        handle_chat_pdb(self.curframe, arg)
+        """y "prompt"
+
+        Ask ChatGPT to explain the current code and stack trace.
+        Optionally prompt for a more specific answer.
+        """
+        handle_chat_pdb(self.curframe, arg)  # type: ignore
 
 
 # For use with simple_prompt IPython instances

@@ -1,5 +1,5 @@
 import traceback
-from typing import Iterable
+from typing import List, Dict, Iterable
 
 from pydantic import BaseModel
 
@@ -9,9 +9,9 @@ from chatpdb.chat.prompts import get_ask_prompt, get_explain_prompt
 
 class AskArgs(BaseModel):
     message: str
-    stack_trace: list[traceback.FrameSummary]
-    local_vars: dict[str, str]
-    global_vars: dict[str, str]
+    stack_trace: List[traceback.FrameSummary]
+    local_vars: Dict[str, str]
+    global_vars: Dict[str, str]
     exception: str = ""
 
     class Config:
@@ -30,9 +30,9 @@ def ask(args: AskArgs) -> Iterable[str]:
 
 
 class ExplainArgs(BaseModel):
-    stack_trace: list[traceback.FrameSummary]
-    local_vars: dict[str, str]
-    global_vars: dict[str, str]
+    stack_trace: List[str]
+    local_vars: Dict[str, str]
+    global_vars: Dict[str, str]
     exception: str = ""
 
     class Config:

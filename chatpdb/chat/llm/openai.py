@@ -1,5 +1,5 @@
 import os
-from typing import Iterable, Literal
+from typing import Iterable, Literal, List, Union
 
 from openai import OpenAI
 from pydantic import BaseModel
@@ -20,7 +20,7 @@ def get_model() -> str:
 
 
 class OpenAIMessage(BaseModel):
-    role: Literal["user"] | Literal["system"] | Literal["assistant"]
+    role: Union[Literal["user"], Literal["system"], Literal["assistant"]]
     content: str
 
     @classmethod
@@ -32,21 +32,21 @@ class OpenAIMessage(BaseModel):
         return cls(role="user", content=content)
 
 
-def prompt(messages: list[OpenAIMessage]) -> str:
+def prompt(messages: List[OpenAIMessage]) -> str:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
     response = client.chat.completions.create(
-        messages=[message.model_dump() for message in messages],
+        messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
     )
-    return response.choices[0].message.content
+    return response.choices[0].message.content  # type: ignore
 
 
-def prompt_streaming(messages: list[OpenAIMessage]) -> Iterable[str]:
+def prompt_streaming(messages: List[OpenAIMessage]) -> Iterable[str]:
     if not messages:
         raise ValueError("messages must not be empty for OpenAI prompt")
-    completion_stream = client.chat.completions.create(
-        messages=[message.model_dump() for message in messages],
+    completion_stream = client.chat.completions.create(  # type: ignore
+        messages=[message.model_dump() for message in messages],  # type: ignore
         model=get_model(),
         stream=True,
     )

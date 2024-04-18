@@ -1,7 +1,7 @@
 import inspect
 import traceback
 from types import FrameType
-from typing import Any, Optional, Type
+from typing import Any, Optional, Type, List, Dict
 from rich.console import Console
 
 from pydantic import BaseModel
@@ -10,9 +10,9 @@ from pydantic import BaseModel
 class FrameData(BaseModel):
     frame: FrameType
     source_code: str
-    locals_dict: dict[str, Any]
-    globals_dict: dict[str, Any]
-    stack_trace: list[traceback.FrameSummary]
+    locals_dict: Dict[str, Any]
+    globals_dict: Dict[str, Any]
+    stack_trace: List[traceback.FrameSummary]
 
     class Config:
         arbitrary_types_allowed = True

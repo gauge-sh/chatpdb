@@ -29,7 +29,8 @@ Simply type `y` to receive a summary of the current code and stack trace.
 ipdb> y
 You are currently in a python debugger, etc.
 ```
-Type `y "[prompt]"` to ask a question. 
+Type `y "prompt"` to ask a question. 
+
 ```python3
 > /Users/you/sample.py (9) test_function()
       8     
