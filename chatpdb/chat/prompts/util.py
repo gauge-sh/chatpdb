@@ -2,14 +2,14 @@ import os
 import sys
 import site
 import traceback
-from typing import Optional
+from typing import Optional, List, Dict
 
 from rich.console import Console
 
 console = Console()
 
 
-def format_stack_trace(stack_trace: list[traceback.FrameSummary]) -> str:
+def format_stack_trace(stack_trace: List[traceback.FrameSummary]) -> str:
     file_contents = {}
     exclude_paths = [sys.base_prefix, sys.prefix] + site.getsitepackages()
 
@@ -54,7 +54,7 @@ def format_stack_trace(stack_trace: list[traceback.FrameSummary]) -> str:
 
 
 def format_vars(
-    vars_dict: dict[str, str], exclude_list: Optional[list[str]] = None
+    vars_dict: Dict[str, str], exclude_list: Optional[List[str]] = None
 ) -> str:
     exclude_list = exclude_list or [
         "__builtins__",
