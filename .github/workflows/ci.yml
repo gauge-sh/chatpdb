@@ -26,16 +26,26 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-         pip install --upgrade pip
-         pip install ruff pytest pytest-mock coverage pyright
-         pip install .
+        pip install --upgrade pip
+        
+        pip install uv
+        uv venv
+        .venv/bin/activate
+        uv pip install -r dev-requirements.txt 
+        uv pip install .
     - name: Check ruff
       run: |
+        .venv/bin/activate
         ruff check . --exclude tests
         ruff format --check .
     - name: Test with pytest and report coverage
       run: |
+        .venv/bin/activate
         cd tests
         coverage run --branch --source=../ -m pytest
         coverage report
         cd ..
+    - name: Enforce module boundaries/dependencies
+      run:
+        .venv/bin/activate
+        tach check
