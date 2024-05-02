@@ -30,22 +30,22 @@ jobs:
         
         pip install uv
         uv venv
-        .venv/bin/activate
+        source .venv/bin/activate
         uv pip install -r dev-requirements.txt 
         uv pip install .
     - name: Check ruff
       run: |
-        .venv/bin/activate
+        source .venv/bin/activate
         ruff check . --exclude tests
         ruff format --check .
     - name: Test with pytest and report coverage
       run: |
-        .venv/bin/activate
+        source .venv/bin/activate
         cd tests
         coverage run --branch --source=../ -m pytest
         coverage report
         cd ..
     - name: Enforce module boundaries/dependencies
       run:
-        .venv/bin/activate
+        source .venv/bin/activate
         tach check
