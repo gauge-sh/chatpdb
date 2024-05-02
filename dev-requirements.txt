@@ -1,0 +1,6 @@
+ruff==0.4.1
+pytest==8.1.1
+pytest-mock
+tach==0.1.2
+coverage==7.5.0
+pyright==1.1.360
