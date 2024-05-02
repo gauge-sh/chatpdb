@@ -5,6 +5,10 @@ constraints:
     - stdout
     - chatpdb.parsing
     - chatpdb.chat
+  chatpdb.chat:
+    depends_on:
+    - llm
+    - prompts
   chatpdb.parsing:
     depends_on:
     - frame
@@ -14,6 +18,9 @@ constraints:
     depends_on:
     - chatpdb.parsing
     - chatpdb.chat
+  llm:
+    depends_on:
+    - prompts
   stdout:
     depends_on:
     - chatpdb
