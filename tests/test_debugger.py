@@ -1,5 +1,4 @@
 from chatpdb.debugger import handle_chat_pdb
-from tests.test_fixtures import mock_chat, mock_console, sample_frame
 
 
 def test_handle_chat_pdb_with_valid_frame(mock_console, mock_chat, sample_frame):
