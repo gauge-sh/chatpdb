@@ -1,0 +1,23 @@
+constraints:
+  chatpdb:
+    depends_on:
+    - debugger
+    - stdout
+    - chatpdb.parsing
+    - chatpdb.chat
+  chatpdb.parsing:
+    depends_on:
+    - frame
+    - chatpdb.chat
+    - chatpdb
+  debugger:
+    depends_on:
+    - chatpdb.parsing
+    - chatpdb.chat
+  stdout:
+    depends_on:
+    - chatpdb
+exclude:
+- tests
+- docs
+exclude_hidden_paths: true
