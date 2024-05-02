@@ -1,0 +1,5 @@
+constraints: {}
+exclude:
+- tests
+- docs
+exclude_hidden_paths: true
