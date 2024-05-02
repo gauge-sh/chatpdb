@@ -6,14 +6,14 @@ import pytest
 
 @pytest.fixture
 def mock_console():
-    with patch("chatpdb.debugger.console") as mock:
+    with patch("chatpdb.debugger.main.console") as mock:
         yield mock
 
 
 @pytest.fixture
 def mock_chat():
-    with patch("chatpdb.debugger.ask") as mock_ask, patch(
-        "chatpdb.debugger.explain"
+    with patch("chatpdb.debugger.main.ask") as mock_ask, patch(
+        "chatpdb.debugger.main.explain"
     ) as mock_explain:
         yield mock_ask, mock_explain
 
